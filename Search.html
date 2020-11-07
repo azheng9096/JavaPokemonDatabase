@@ -1,0 +1,321 @@
+<!doctype HTML>
+<html>
+    <head>
+        <title> Generation I Pokemon </title>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Playfair+Display+SC&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Quattrocento+Sans&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+
+        <style>
+            html, body{
+                height: 100%;
+            }
+            body{
+                background-color: white;
+                /*background-blend-mode: multiply;
+                background-image: url("https://images.pond5.com/dynamic-animation-smooth-gradient-background-footage-090800106_prevstill.jpeg");
+                background-size: cover;*/
+            }
+            .navbar{
+                margin-bottom: 0;
+                padding-top: 10px;
+                padding-bottom: 10px;
+                background-color: #00000000;
+                border: 0;
+                font-size: 13px;
+                letter-spacing: 4px;
+                border-radius: 0;
+                position: absolute;
+                top: 0; left: 0; right: 0; bottom: 0;
+            }
+            .navbar-brand img{
+                height: auto;
+                width: auto;
+                max-height: 50px;
+                max-width: 200px;
+                transform: translate(-10px, -10px);
+                
+            }
+            #display .navbar-nav li a, #display .navbar-brand{
+                color: rgb(216, 216, 216);
+            }
+
+            #display .navbar-nav li a:hover, #display .navbar-nav li.active a {
+                color: #1ef4a2;
+                /*background-color: #00000025;*/
+            }
+
+            #display .navbar-default .navbar-toggle {
+                border-color: transparent;
+                color: #fff;
+            }
+
+            #display .icon-bar{
+                background-color: white;
+            }
+
+            #display #current a{
+                color: #15e494;
+            }
+
+           
+            #display .form-control{
+                background-color: rgba(0, 0, 0, 0);
+                font-size: 13px;
+                letter-spacing: 2px;
+                color: white;
+            }
+            #display .btn-default{
+                background-color: rgba(0, 0, 0, 0);
+                border-color: transparent;
+            }
+            #display .glyphicon-search{
+                color: rgb(226, 226, 226);
+            }
+
+            #heading{
+                width: 100%;
+                height: auto;
+                text-align: center;
+            }
+        
+            #title{
+                font-family: 'Playfair Display SC', serif;
+                color: white;
+                font-size: 40px;
+                text-align: center;
+                position: absolute;
+                letter-spacing: 4px;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%,-50%);
+            }
+            #sub{
+                font-family: 'Quattrocento Sans', sans-serif;
+                font-size: 15px;
+                text-align: center;
+            }
+            #bkg{
+                height: 100vh;
+                background-size: cover;
+                background-color: gray;
+                background-blend-mode: multiply;
+                /*background-image: url("https://safebooru.org//samples/2320/sample_e843387481e513b87777a2612ed4764fbfa792f1.png?2416547");*/
+                background-image: url("https://i.ibb.co/LYx00BG/vaporeon-pokemon-drawn-by-manino-mofuritaionaka-sample-a5ddeca43c9a4c1f9e0cc8ab6c50be2c.jpg");
+            }
+
+            #output{
+                padding-top: 50px;
+                margin: auto;
+                background-color: rgb(255, 255, 255);
+            }
+
+            #wTable{
+                margin: 20px;
+                margin-top: 50px;
+            }
+
+            thead{
+                background-color: rgba(255, 0, 0, 0.699);
+            }
+
+            td .btn{
+                /*border: 1px solid black;*/
+                background-color: rgba(0, 0, 0, 0.014);
+                border-image: linear-gradient( #f03838 0%, #d1d1d1 100%);
+                border-image-slice: 1;
+                border-width: 1px;
+                font-size: 12px;
+            }
+            td{
+                font-family: 'Montserrat', sans-serif;
+            }
+            .moveHeading{
+                /*background-color: rgb(255, 255, 255);
+                color: rgb(0, 0, 0);*/
+                background-color: rgb(255, 255, 255);
+                color: rgb(31, 31, 31);
+            }
+            
+            #display .dropdown-menu{
+                background-color: rgba(0, 0, 0, 0);
+                border: 1px solid white;
+                font-size: 13px;
+                letter-spacing: 3px;
+            }
+            #display .dropdown-toggle[aria-expanded="true"]{
+                background-color: rgba(0, 0, 0, 0);
+            }
+            #display #dropdownmenu li a{
+                color: white;
+            }
+            #display #dropdownmenu li a:hover{
+                background-color: rgba(0, 0, 0, 0.192);
+                color: #15e494;
+            }
+            #Note{
+                margin-top: 10px;
+                font-size: 10px;
+                letter-spacing: 3px;
+            }
+            
+
+        </style>
+
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" 
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" 
+        crossorigin="anonymous"></script>
+        <script src = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
+
+        <script type="text/template" id="pokeTemplate">
+            <!--<div id="individualResults">-->
+            <tr data-toggle="collapse" data-target="#demo">
+                <td>{{ID}}</td>
+                <td>{{Name}}</td>
+                <td>{{Type}}</td>
+                <td>{{SecondType}}</td>
+                <td>{{Evolveable}}</td>
+                <td>{{Legendary}}</td>
+                <td>{{CatchRate}}</td>
+                <!--<td><button data-toggle="collapse" data-target="#demo">Show</button></td>
+            </tr>
+            <tr id="demo" class="collapse">
+                <td colspan="8">Lorem ipsum dolor text....</td>
+            </tr>-->
+            
+        </script>
+
+        <script type="text/template" id="moveTemplate">
+            <tr>
+                <td>{{MoveName}}</td>
+                <td>{{MoveType}}</td>
+                <td>{{Power}}</td>
+                <td>{{Acc}}</td>
+                <td>{{PP}}</td>
+            </tr>
+            
+        </script>
+
+        <script>
+            var data;
+
+            function showTable(){
+                var e = document.getElementById("wTable");
+                e.style.display = 'block';
+            }
+			
+			function getData(){
+                var pokemonInput = document.getElementById("pokeInput").value;
+				$.get("http://localhost:8500/getNames?id=" + pokemonInput, function(results){
+					data = JSON.parse(results);
+                    getPokemon();
+				});
+			}
+			
+			function getPokemon(){
+				var build ="";
+				var output = document.getElementById("output");
+                var name ="";
+                var newI = 0;
+                var template = document.getElementById("pokeTemplate").innerHTML;
+
+                var template2 = document.getElementById("moveTemplate").innerHTML;
+
+				for (var i=0; i<data.length; i++){
+                    if(name!=data[i].Name){
+                        if(i>0 && name!=data[i].Name){
+                            build +="</tbody></table></td></tr>";
+                        }
+                        build += Mustache.render(template,data[i]);
+                        build +="<td><button type='button' class='btn' data-toggle='collapse' data-target='#demo" + newI;
+                        build +="'>Display</button></td></tr><tr id='demo" + newI + "' class='collapse'><td colspan='8'><table class='table'><thead class='moveHeading'><tr><th>Name</th><th>Type</th><th>Damage</th>"
+                        build +="<th>Accuracy</th><th>PP</th></tr></thead><tbody>";
+                        newI++;
+                    }
+                    build += Mustache.render(template2,data[i]);
+                    name = data[i].Name;
+				}
+                build +="</tbody></table></td></tr>";
+				output.innerHTML = build;
+                showTable();
+			}
+            
+        </script>
+
+    </head>
+
+    <body id="display">
+        <nav class="navbar navbar-default">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>                        
+                    </button>
+                    <a class="navbar-brand" href="#"><img src="https://purepng.com/public/uploads/large/purepng.com-pokeballpokeballdevicepokemon-ballpokemon-capture-ball-17015278258617bdog.png"></a>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="HomepageV2"><span class="glyphicon glyphicon-home"></span>&nbsp Home</a></li>
+                        <li><a href="AllPokemon">All Pokemon</a></li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Types<span class="caret"></span></a>
+                            <ul class="dropdown-menu" id="dropdownmenu">
+                                <li><a href="Types">Routes Version</a></li>
+                                <li><a href="TypesLite">iF Version</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown" id="current">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Search<span class="caret"></span></a>
+                            <ul class="dropdown-menu" id="dropdownmenu">
+                                <li><a href="Search">Routes Version</a></li>
+                                <li><a href="SearchLite">iF Version</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div id="bkg">
+            <div id="heading">
+                <div id="title">
+                    Pokemon: Generation I (Search, Routes Version)<hr>
+                    <div id="sub">
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Search Pokemon" id="pokeInput">
+                                <button type="button" class="btn btn-default" onclick="getData()"><span class="glyphicon glyphicon-search"></span></button>
+                            </div>
+                        </form>
+                        <div id="Note">*Some Searches Will Take A While To Load (Ex. Any Pokemon Containing The Letter "a")</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--<input type="button" onclick="getData()" value="Click">-->
+        <div id="wTable" style="display: none">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Pokemon</th>
+                        <th>Type</th>
+                        <th>SecondType</th>
+                        <th>Evolveable?</th>
+                        <th>Legendary?</th>
+                        <th>Catch Rate</th>
+                        <th>Moves</th>
+                    </tr>
+                </thead>
+                <tbody id="output">
+
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>
