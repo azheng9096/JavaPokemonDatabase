@@ -1,3 +1,3 @@
 # JavaPokemonDatabase
 
-Junior high school project - familiarzing with SQL and using Java to handle routing.
+High school junior project - familiarzing with SQL and using Java to handle routing.
